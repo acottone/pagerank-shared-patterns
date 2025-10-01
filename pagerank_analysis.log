@@ -1,0 +1,26 @@
+2025-09-28 09:39:42,132 - __main__ - INFO - Loading file: physician-shared-patient-patterns-2015-days180.txt
+2025-09-28 09:40:12,529 - __main__ - INFO - File loaded successfully
+2025-09-28 09:40:28,174 - __main__ - INFO - Found 1034612 unique NPIs
+2025-09-28 09:40:29,159 - __main__ - INFO - Mapping NPIs to indices
+2025-09-28 09:45:00,362 - __main__ - INFO - Edges relabeled
+2025-09-28 09:45:10,024 - __main__ - INFO - Graph construction complete
+2025-09-28 09:45:10,223 - __main__ - INFO - Starting healthcare analysis on full dataset: 1,034,612 providers
+2025-09-28 09:45:10,223 - __main__ - INFO - Running PageRank analysis on 1,034,612 providers
+2025-09-28 09:45:10,392 - __main__ - INFO - Starting PageRank: 1,034,612 providers, damping=0.85, tolerance=1e-08
+2025-09-28 09:49:04,441 - __main__ - INFO - PageRank converged in 72 iterations, time=234.2172s, error=9.60e-09
+2025-09-28 09:49:04,444 - __main__ - INFO - PageRank completed: 72 iterations, 234.2172s
+2025-09-28 09:49:04,444 - __main__ - INFO - Starting provider network analysis
+2025-09-28 09:49:04,585 - __main__ - INFO - Starting PageRank: 1,034,612 providers, damping=0.85, tolerance=1e-08
+2025-09-28 09:52:58,988 - __main__ - INFO - PageRank converged in 72 iterations, time=234.5432s, error=9.60e-09
+2025-09-28 09:52:58,992 - __main__ - INFO - PageRank analysis: 72 iterations, converged=True, time=234.5432s
+2025-09-28 09:53:01,361 - __main__ - INFO - Provider network analysis complete. Identified 102610 hubs, 102812 authorities, 103462 central providers
+2025-09-28 09:53:01,953 - __main__ - INFO - Starting risk propagation analysis
+2025-09-28 10:07:27,897 - __main__ - INFO - Risk propagation complete. 103462 providers identified
+2025-09-28 10:08:36,116 - __main__ - INFO - Tolerance 0.0001: 22 iterations, converged=True, error=9.19e-05
+2025-09-28 10:10:44,886 - __main__ - INFO - Tolerance 1e-06: 46 iterations, converged=True, error=9.80e-07
+2025-09-28 10:14:17,887 - __main__ - INFO - Tolerance 1e-08: 72 iterations, converged=True, error=9.60e-09
+2025-09-28 10:19:19,575 - __main__ - INFO - Tolerance 1e-10: 99 iterations, converged=True, error=8.56e-11
+2025-09-28 10:19:24,057 - visualizations2 - INFO - Saved healthcare analysis visualization: visualizations/healthcare_pagerank_analysis.png
+2025-09-28 10:19:27,568 - visualizations2 - INFO - Saved risk analysis plot: visualizations/healthcare_risk_analysis.png
+2025-09-28 10:19:29,683 - visualizations2 - INFO - Created convergence analysis plot: visualizations/convergence_analysis.png
+2025-09-28 10:19:31,217 - visualizations2 - INFO - Created comprehensive dashboard: visualizations/healthcare_network_dashboard.html
