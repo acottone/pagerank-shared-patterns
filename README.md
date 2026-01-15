@@ -68,7 +68,7 @@ Adapted PageRank to model risk flow through the network:
 
 ## Dataset
 
-**Source:** [CMS Physician Shared Patient Patterns (2015)](https://data.cms.gov/)
+**Source:** [CMS Physician Shared Patient Patterns (2015)]([https://data.cms.gov/](https://www.nber.org/research/data/physician-shared-patient-patterns-data))
 
 **Specifications:**
 - **Providers:** 1,034,612 unique healthcare providers (NPIs)
