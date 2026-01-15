@@ -1,5 +1,7 @@
 # Healthcare Network PageRank Analysis
 
+Identifying influential healthcare providers and modeling risk propagation through a million-node referral network using PageRank algorithms.
+
 [![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-1.21%2B-orange)](https://numpy.org/)
 [![SciPy](https://img.shields.io/badge/SciPy-Sparse-green)](https://scipy.org/)
@@ -7,25 +9,70 @@
 
 ---
 
+## TL;DR
+- Applied PageRank to a 1M+ node healthcare referral network
+- Identified high-impact providers responsible for 54% of propagated risk
+- Demonstrated network-driven risk amplification up to 400x
+- Built a memory-efficient spare implementation scalable to real-world healthcare data
+
+---
+
 ## Project Overview
 
-This project applies the PageRank algorithm to analyze a massive healthcare provider network, identifying influential providers and modeling how risk propagates through referral relationships. Using real-world data from the 2015 Physician Shared Patient Patterns dataset, I analyzed over 1 million healthcare providers and 65 million referral connections.
+This project applies the PageRank algorithm to a large-scale healthcare provider referral network to identify influential providers and analyze how risk propagates through referral relationships. Using the 2015 CMS Physician Shared Patient Patterns dataset, this analysis includes:
+- 1,034,612 healthcare providers
+- 65,739,582 referral relationships.
+This project emphasizes scalability, numerical stability, and domain-specific interpretation of network centrality.
 
-### Key Objectives
-- Identify influential healthcare providers using network centrality measures
-- Model risk propagation through provider referral networks
-- Analyze network structure to categorize providers by role (hubs, authorities, central nodes)
-- Optimize algorithm performance for large-scale network analysis
+### From Coursework to Large-Scale Healthcare Analysis
+This project extends a PageRank implementation originally developed for an upper-division applied linear algebra course (MAT 167).
+
+Key extensions include:
+- Scaling from ~280K web nodes to 1M+ healthcare providers
+- Replacing dense matrices with SciPy sparse representations
+- Implementing power iteration for large-scale convergence
+- Adapting PageRank into a risk propagation framework
+- Adding convergence benchmarking and performance analysis
+
+---
+
+## Key Findings
+
+### Network Structure
+- **Highly centralized network:** Top 10% of providers account for 54% of network influence
+- **Power-law distribution:** Small number of providers have disproportionate connectivity
+- **Average connectivity:** 63.54 referrals per provider across 1M+ nodes
+
+### Risk Propagation
+- **Risk concentration:** 54.21% of total risk concentrated in top 10% of providers
+- **Network amplification:** Provider network position can amplify baseline risk by up to 400x
+- **Intervention leverage:** Targeting the most central 10% of providers could impact majority of network-level risk
+
+### Algorithm Performance
+- **Convergence speed:** 72 iterations for 1M+ node network
+- **Memory efficiency:** Reduced from 8TB (dense) to 2GB (sparse), a 4000x improvement
+- **Computation time:** ~39 mins from start to finish
 
 ---
 
 ## Motivation
 
-Healthcare networks are complex systems where providers refer patients to specialists and other care facilities. Understanding these networks can:
-- **Identify key providers** for quality improvement interventions
-- **Detect unusual referral patterns** that may indicate fraud or inefficiency
-- **Optimize care coordination** by understanding network structure
-- **Model risk propagation** to understand how issues spread through the network
+Healthcare provider networks are complex ecosystems where referral patterns can reveal:
+- **Quality improvement opportunities:** Identify key providers for targeted interventions
+- **Fraud detection patterns:** Detect unusual referral behaviors
+- **Care coordination optimization:** Understand information flow and patient handoffs
+- **Risk propagation dynamics:** Model how issues cascade through provider relationships
+Traditional healthcare analytics focus on individual providers. This project demonstrates that network position is equally critical for understanding provider influence and risk.
+
+---
+
+## Dataset
+
+**Source:** [CMS Physician Shared Patient Patterns (2015)]([https://data.cms.gov/](https://www.nber.org/research/data/physician-shared-patient-patterns-data))
+- **Providers:** 1,034,612 unique healthcare providers (NPIs)
+- **Referral Relationships:** 65,739,582 connections
+- **Network Density:** 6.14 × 10⁻⁵ (highly sparse)
+- **Average Degree:** 63.54 referrals per provider
 
 ---
 
@@ -64,24 +111,55 @@ Adapted PageRank to model risk flow through the network:
 - **Non-uniform initialization**: Starts with actual risk scores instead of uniform distribution
 - **Composite risk metric**: Combines connectivity risk, referral imbalance, and isolation risk
 
----
+### Risk Propagation Model
 
-## Dataset
+Adapted PageRank to model risk flow:
+- **Higher damping factor (0.95)** to model persistent risk retention
+- **Non-uniform initialization** using composite provider risk scores
+- **Amplification factors** quantify how network position magnifies baseline risk
+- **Top-percentile risk concentration analysis (90/95/99%)**
 
-**Source:** [CMS Physician Shared Patient Patterns (2015)]([https://data.cms.gov/](https://www.nber.org/research/data/physician-shared-patient-patterns-data))
-
-**Specifications:**
-- **Providers:** 1,034,612 unique healthcare providers (NPIs)
-- **Referral Relationships:** 65,739,582 connections
-- **Network Density:** 6.14 × 10⁻⁵ (highly sparse)
-- **Average Degree:** 63.54 referrals per provider
-- **Data Processing Time:** ~4 minutes to load and construct sparse matrix
+This approach identifies providers whose network position drives risk, even when their baseline risk is low.
 
 ---
 
-## Methodology & Process
+## Methodology
 
-### Step 1: Data Loading & Graph Construction
+### Analysis Pipeline
+
+This project implements a full end-to-end healthcare network analysis system:
+
+1. **Data Ingestion**
+   - Loads CMS referral edge lists
+   - Maps NPIs to matrix indices
+   - Constructs memory-efficient sparse adjacency matrices
+
+2. **Core PageRank Computation**
+   - Power iteration with sparse linear algebra
+   - Dangling-node handling
+   - L1-norm convergence for probability stability
+
+3. **Network Structure Analysis**
+   - Hub (out-degree), Authority (in-degree), and PageRank centrality
+   - Identification of top 10% providers by role
+   - Network density and inequality metrics
+
+4. **Risk Modeling & Propagation**
+   - Composite risk score construction
+   - PageRank-based risk diffusion model
+   - Risk amplification analysis
+
+5. **Performance & Convergence Testing**
+   - Accuracy–runtime tradeoff analysis across tolerances
+   - Iteration counts and timing benchmarks
+
+6. **Visualization & Reporting**
+   - Static plots and interactive dashboards
+   - Centrality, risk, and convergence summaries
+
+### Execution Details
+
+#### Step 1: Data Loading & Graph Construction
 ```
 Loading network data...
 ✓ File loaded successfully (26 seconds)
@@ -95,7 +173,7 @@ Loading network data...
 - Created bidirectional mapping: NPI ↔ matrix index
 - Built sparse CSC matrix for efficient column operations
 
-### Step 2: PageRank Computation
+#### Step 2: PageRank Computation
 ```
 Running PageRank algorithm...
 ✓ Converged in 72 iterations
@@ -108,7 +186,7 @@ Running PageRank algorithm...
 - **Convergence:** Achieved tolerance of 1e-8
 - **Speed:** ~3.1 seconds per iteration for 1M+ node network
 
-### Step 3: Network Structure Analysis
+#### Step 3: Network Structure Analysis
 Identified three categories of key providers:
 
 | Category | Count | Description |
@@ -123,7 +201,7 @@ Identified three categories of key providers:
 - Referrals In: 218
 - Role: Hub, Authority, and Central provider
 
-### Step 4: Risk Propagation Analysis
+#### Step 4: Risk Propagation Analysis
 ```
 Running risk propagation model...
 ✓ Identified 103,462 high-risk providers (top 10%)
@@ -147,7 +225,7 @@ Running risk propagation model...
 
 *Amplification factor shows how much network position increases individual risk*
 
-### Step 5: Convergence Performance Testing
+#### Step 5: Convergence Performance Testing
 Tested algorithm across multiple tolerance levels to analyze accuracy-speed tradeoffs:
 
 | Tolerance | Iterations | Time (s) | Converged |
@@ -192,35 +270,25 @@ Tested algorithm across multiple tolerance levels to analyze accuracy-speed trad
 
 ---
 
-## Key Insights & Business Value
+## Installation & Usage
 
-### 1. Network Centralization
-- **Finding:** Network is highly centralized with a small number of influential providers
-- **Implication:** Interventions targeting top 10% of providers could impact majority of network
+### Prerequisites
+```bash
+pip install numpy scipy matplotlib plotly networkx pandas
+```
 
-### 2. Risk Concentration
-- **Finding:** 54% of risk concentrated in 10% of providers
-- **Implication:** Risk management efforts should focus on high-centrality providers
+### Execution
+```bash
+python pagerank.py
+```
 
-### 3. Amplification Effects
-- **Finding:** Network position can amplify individual risk by up to 400x
-- **Implication:** Provider risk assessment should consider network context, not just individual factors
+### Expected Output
+- Console output with analysis results
+- Static visualizations in `visualizations/` folder
+- Interactive HTML dashboard
+- Execution log in `pagerank_analysis.log`
 
-### 4. Algorithm Efficiency
-- **Finding:** PageRank converges quickly (72 iterations) even for 1M+ node networks
-- **Implication:** This approach scales to real-world healthcare networks
-
----
-
-## Technologies Used
-
-- **Python 3.7+**: Core programming language
-- **NumPy**: Numerical computations and array operations
-- **SciPy (sparse)**: Sparse matrix operations for memory efficiency
-- **Matplotlib**: Static publication-quality visualizations
-- **Plotly**: Interactive HTML dashboards
-- **NetworkX**: Network topology visualization (optional)
-- **Pandas**: Data manipulation and correlation analysis
+**Total Runtime:** ~39 minutes for full analysis on 1M+ provider network
 
 ---
 
@@ -247,94 +315,40 @@ pagerank-healthcare/
 
 ---
 
-## Skills Demonstrated
+## Technologies Used
 
-### Technical Skills
-- **Graph Algorithms:** PageRank, centrality measures, network analysis
-- **Optimization:** Sparse matrix operations, memory-efficient data structures
-- **Numerical Methods:** Power iteration, convergence analysis, error metrics
-- **Data Processing:** Large-scale data loading, indexing, transformation
-- **Visualization:** Multi-panel plots, interactive dashboards, professional presentation
+- **Python 3.7+**: Core programming language
+- **NumPy**: Numerical computations and array operations
+- **SciPy (sparse)**: Sparse matrix operations for memory efficiency
+- **Matplotlib**: Static publication-quality visualizations
+- **Plotly**: Interactive HTML dashboards
+- **NetworkX**: Network topology visualization (optional)
+- **Pandas**: Data manipulation and correlation analysis
 
-### Analytical Skills
-- **Problem Decomposition:** Breaking complex network analysis into modular components
-- **Performance Analysis:** Benchmarking, tradeoff analysis, optimization
-- **Risk Modeling:** Adapting algorithms for domain-specific applications
-- **Statistical Analysis:** Distribution analysis, percentile calculations, correlation
+### Numerical Methods
+- Power iteration for eigenvalue computation
+- L1-norm convergence for probability distributions
+- Sparse linear algebra for scalability
+- Value at Risk (VaR) and Expected Shortfall for tail-risk analysis
 
-### Software Engineering
-- **Code Quality:** Comprehensive documentation, logging, error handling
-- **Modularity:** Reusable functions, clear separation of concerns
-- **Testing:** Convergence validation, edge case handling
-- **Version Control:** Git workflow, professional repository structure
-
----
-
-## 🚀 Running the Project
-
-### Prerequisites
-```bash
-pip install numpy scipy matplotlib plotly networkx pandas
-```
-
-### Execution
-```bash
-python pagerank.py
-```
-
-### Expected Output
-- Console output with analysis results
-- Static visualizations in `visualizations/` folder
-- Interactive HTML dashboard
-- Execution log in `pagerank_analysis.log`
-
-**Total Runtime:** ~39 minutes for full analysis on 1M+ provider network
-
----
-
-## Performance Metrics
-
-| Metric | Value |
-|--------|-------|
-| **Network Size** | 1,034,612 providers |
-| **Edge Count** | 65,739,582 referrals |
-| **PageRank Iterations** | 72 |
-| **Convergence Time** | 223.08 seconds |
-| **Total Runtime** | 2,333.83 seconds (~39 min) |
-| **Memory Usage** | ~2GB (sparse matrices) |
-| **Convergence Error** | 9.60 × 10⁻⁹ |
-
----
-
-## Future Enhancements
-
-- [ ] **Temporal Analysis:** Track network evolution over multiple years
-- [ ] **Community Detection:** Identify provider clusters and specialization groups
-- [ ] **Predictive Modeling:** Use network features to predict provider outcomes
-- [ ] **Real-time Updates:** Incremental PageRank for dynamic networks
-- [ ] **Geographic Analysis:** Incorporate provider location data
-- [ ] **Parallel Processing:** Distribute computation across multiple cores
+### Network Science
+- PageRank centrality
+- Hub and authority scores
+- Risk diffusion modeling
+- Network inequality metrics (Gini coefficient)
 
 ---
 
 ## References
-
-- CMS Physician Shared Patient Patterns Dataset (2015)
+- Original Project Report: [Original PageRank Analysis (MAT 167)](original_pagerank/original_pagerank_report.pdf)
+- Dataset: [CMS Physician Shared Patient Patterns (2015)]([https://data.cms.gov/](https://www.nber.org/research/data/physician-shared-patient-patterns-data))
 
 ---
 
 ## Author
 
 **Angelina Cottone**
+B.S. Statistics (Statistical Data Science), UC Davis 2025
 
 ---
-
-## Acknowledgments
-
-- Centers for Medicare & Medicaid Services (CMS) for providing the dataset
-
----
-
 *Last Updated: January 2026*
-
-
