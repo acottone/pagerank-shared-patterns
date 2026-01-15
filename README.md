@@ -295,10 +295,10 @@ python pagerank.py
 ## Project Structure
 
 ```
-pagerank-healthcare/
+pagerank-shared-patterns/
 │
-├── pagerank2.py              # Core PageRank algorithm implementation
-├── visualizations2.py        # Visualization generation module
+├── pagerank.py              # Core PageRank algorithm implementation
+├── visualizations.py        # Visualization generation module
 ├── healthcare_network_dashboard.html  # Generated dashboard
 ├── visualizations/           # Generated plots
 │   ├── healthcare_pagerank_analysis.png
