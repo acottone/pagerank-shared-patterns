@@ -231,7 +231,6 @@ pagerank-healthcare/
 │
 ├── pagerank2.py              # Core PageRank algorithm implementation
 ├── visualizations2.py        # Visualization generation module
-├── physician-shared-patient-patterns-2015-days180.txt  # Dataset
 ├── healthcare_network_dashboard.html  # Generated dashboard
 ├── visualizations/           # Generated plots
 │   ├── healthcare_pagerank_analysis.png
