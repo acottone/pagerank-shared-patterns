@@ -2,9 +2,9 @@
 
 Identifying influential healthcare providers and modeling systemic risk propagation in a **1M+ node referral network** using scalable PageRank algorithms.
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/)
-[![NumPy](https://img.shields.io/badge/NumPy-1.21%2B-orange)](https://numpy.org/)
-[![SciPy](https://img.shields.io/badge/SciPy-Sparse-green)](https://scipy.org/)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![SciPy](https://img.shields.io/badge/SciPy-%230C55A5.svg?style=for-the-badge&logo=scipy&logoColor=%white)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
