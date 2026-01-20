@@ -60,8 +60,6 @@ This project originated from a MAT 167 (Applied Linear Algebra) course assignmen
 - **Advanced visualization:** Interactive Plotly dashboards with 6-panel analysis layouts
 - **Production-quality code:** Comprehensive logging, error handling, modular design, and documentation
 
-[Original PageRank Analysis (MAT 167)](original_pagerank/original_pagerank_report.pdf)
-
 ---
 
 ## Key Findings
@@ -378,7 +376,7 @@ B.S. Statistics, UC Davis 2025
 
 ### Original Project
 
-- [original_pagerank](https://github.com/acottone/pagerank-shared-patterns/tree/main/original_pagerank)
+- [Original PageRank Analysis (MAT 167)](original_pagerank/original_pagerank_report.pdf)
 
 ### PageRank Implementation
 
@@ -390,6 +388,10 @@ Mathematics 6(1) 29--123, 2009.
 https://www.geeksforgeeks.org/page-rank-algorithm-implementation/ (accessed March
 16, 2025).
 - C. Moler, Experiments with MATLAB, Chapter 7: Google PageRank, MathWorks, 2007.
+
+### Data Sources
+
+- [CMS Physician Shared Patient Patterns (2015)]([https://data.cms.gov/](https://www.nber.org/research/data/physician-shared-patient-patterns-data))
 
 ---
 *Last Updated: January 2026*
