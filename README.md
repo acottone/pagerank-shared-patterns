@@ -368,7 +368,7 @@ pagerank-shared-patterns/
 
 **Angelina Cottone**
 
-B.S. Statistics, UC Davis 2025
+B.S. Statistics (Statistical Data Science), UC Davis 2025
 
 ---
 
