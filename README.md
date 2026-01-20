@@ -370,11 +370,26 @@ pagerank-shared-patterns/
 
 **Angelina Cottone**
 
+B.S. Statistics, UC Davis 2025
+
 ---
 
 ## References
 
-1. 
+### Original Project
+
+- [original_pagerank](https://github.com/acottone/pagerank-shared-patterns/tree/main/original_pagerank)
+
+### PageRank Implementation
+
+- C. Moler, Numerical computing with MATLAB, MathWorks, Nattick, Mass, 2004.
+- J. Leskovec, K. Lang, A. Dasgupta, M. Mahoney. Community Structure in Large Networks:
+Natural Cluster Sizes and the Absence of Large Well-Defined Clusters. Internet
+Mathematics 6(1) 29--123, 2009.
+- GeeksforGeeks, Page rank algorithm and Implementation, GeeksforGeeks. (2022).
+https://www.geeksforgeeks.org/page-rank-algorithm-implementation/ (accessed March
+16, 2025).
+- C. Moler, Experiments with MATLAB, Chapter 7: Google PageRank, MathWorks, 2007.
 
 ---
 *Last Updated: January 2026*
